@@ -61,7 +61,6 @@ def getDataFromServer():
     headers_events = {
       'bs-session-id': authenticate_user,  # Use the session ID from the login response
       'Content-Type': 'application/json',
-      'Cookie': 'JSESSIONID=D6D7CD2415208A0E78BEFF93187BA515',
 
     }
 

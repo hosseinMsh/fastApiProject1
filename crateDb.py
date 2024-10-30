@@ -1,13 +1,17 @@
 import psycopg2
 
+from appSetting import dbUser, dbPassword, database, host
+
+
 def create_user_table():
+    cur = None  # Initialize cur to None
     try:
         # Establish a connection to the database
         conn = psycopg2.connect(
-            host="localhost",
-            database="workTime",
-            user="postgres",
-            password="hoss1383",
+            host=host,
+            database=database,
+            user=dbUser,
+            password=dbPassword,
             port=5433
         )
 
@@ -15,7 +19,7 @@ def create_user_table():
         cur = conn.cursor()
 
         # SQL command to create the user table
-        cur.execute("""
+        cur.execute(""" 
              CREATE TABLE IF NOT EXISTS users (
                  id SERIAL PRIMARY KEY,
                  name VARCHAR(100),
@@ -27,9 +31,6 @@ def create_user_table():
                  registration_type VARCHAR(50)
              )
          """)
-
-        # Execute the SQL command
-
 
         # Commit the transaction
         conn.commit()

@@ -1,23 +1,12 @@
-import psycopg2
 
-from appSetting import dbUser, dbPassword, database, host
 
 
 def create_user_table():
+    from appSetting import conn
     cur = None  # Initialize cur to None
     try:
-        # Establish a connection to the database
-        conn = psycopg2.connect(
-            host=host,
-            database=database,
-            user=dbUser,
-            password=dbPassword,
-            port=5433
-        )
-
         # Create a cursor object
         cur = conn.cursor()
-
         # SQL command to create the user table
         cur.execute(""" 
              CREATE TABLE IF NOT EXISTS users (
@@ -43,5 +32,3 @@ def create_user_table():
         # Close the cursor and connection
         if cur:
             cur.close()
-        if conn:
-            conn.close()

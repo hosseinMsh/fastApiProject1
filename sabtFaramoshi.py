@@ -1,20 +1,11 @@
 import psycopg2
-from jinja2.filters import sync_do_sum
-
-from appSetting import dbUser, dbPassword, database, host
+from jinja2 import Environment, FileSystemLoader
 from crateDb import create_user_table
 from datetime import datetime
 def addDataToDb(name, job_id, day, time, type_, door, registration_type):
     create_user_table()
-    conn = psycopg2.connect(
-        host=host,
-        database=database,
-        user=dbUser,
-        password=dbPassword,
-        port=5433
-    )
+    from appSetting import conn
     cur = conn.cursor()
-
     try:
         # First, check if this exact time entry already exists
         cur.execute(
@@ -58,4 +49,3 @@ def addDataToDb(name, job_id, day, time, type_, door, registration_type):
 
     finally:
         cur.close()
-        conn.close()
